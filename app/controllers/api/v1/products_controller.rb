@@ -27,6 +27,27 @@ class Api::V1::ProductsController < ApplicationController
     end
   end
 
+  def update
+    product = Product.find_by(id: params[:id])
+    if prod_params[:name]
+    product.name= prod_params[:name]
+      
+    end
+    if prod_params[:brand]
+      product.brand= prod_params[:brand]
+    end
+    if prod_params[:price]
+      product.price= prod_params[:price]
+    end
+    if prod_params[:description]
+      product.description= prod_params[:description]
+    end
+    if product.save
+      render json: product, status: 201
+    else
+      render json: {error: "error while updation"}
+    end
+  end
   def destroy
     product = Product.find_by(id: params[:id])
     product.destroy
